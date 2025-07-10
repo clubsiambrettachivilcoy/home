@@ -212,6 +212,11 @@ button.next { right: 15px; }
     line-height: 1.6;
 }
 
+.botonesEvento {
+    display: flex;
+    gap: 20px;
+}
+
 .redes-sociales {
     margin-top: 15px;
 }
