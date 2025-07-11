@@ -43,3 +43,10 @@ document.querySelectorAll('.carousel').forEach((carousel) => {
 
     setInterval(nextImage, 4000);  // Automático cada 4 segundos
 });
+
+const menuToggle = document.querySelector('.menu-toggle');
+const nav = document.querySelector('nav');
+
+menuToggle.addEventListener('click', () => {
+    nav.classList.toggle('active');
+});

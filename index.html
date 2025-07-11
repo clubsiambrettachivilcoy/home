@@ -11,6 +11,10 @@
 <body>
     <header>
         <img src="imgs/logos/Logo2_CSC.png" alt="Logo Club Siambretta">
+        <!-- Botón hamburguesa -->
+        <button class="menu-toggle" aria-label="Abrir menú">
+            &#9776;
+        </button>
         <nav>
             <a href="#eventos">Eventos</a>
             <a href="#fotos">Galería de Fotos</a>
@@ -23,34 +27,16 @@
         <h2>Eventos</h2>
         <p>15° Aniversario - 22 y 23 de noviembre.</p>
         <div class="evento-card">
-            <img src="imgs/eventos/evento1.jpg" alt="15° Aniversario" class="evento-img">
+            <img src="imgs/eventos/evento-15.png" alt="15° Aniversario" class="evento-img">
         </div>
         <div class="botonesEvento">
-            <p style="text-align:center; margin-top: 15px;">
-                <a href="" target="_blank" style="
-                    display: inline-block;
-                    padding: 10px 20px;
-                    background-color: #007BFF;
-                    color: #fff;
-                    text-decoration: none;
-                    border-radius: 8px;
-                    font-weight: bold;
-                    transition: background-color 0.3s ease;
-                ">
+            <p class="botones">
+                <a href="" target="_blank">
                     Información
                 </a>
             </p>
-            <p style="text-align:center; margin-top: 15px;">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLScBpZwIahk_Rs_0N9kUZe4EBAxQAs5r3YQcSz2rQAMzP7qsDg/viewform?usp=sharing&ouid=117101081836572687354" target="_blank" style="
-                    display: inline-block;
-                    padding: 10px 20px;
-                    background-color: #007BFF;
-                    color: #fff;
-                    text-decoration: none;
-                    border-radius: 8px;
-                    font-weight: bold;
-                    transition: background-color 0.3s ease;
-                ">
+            <p class="botones">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScBpZwIahk_Rs_0N9kUZe4EBAxQAs5r3YQcSz2rQAMzP7qsDg/viewform?usp=sharing&ouid=117101081836572687354" target="_blank">
                     Inscripción a la cena
                 </a>
             </p>
@@ -70,7 +56,7 @@
                 <p>Asado campero</p>
             </div>
             <div class="servicio-card">
-                <img src="imgs/servicios/camping.png" alt="camping">
+                <img src="imgs/servicios/camping.jpg" alt="camping">
                 <p>Camping</p>
             </div>
         </div>
@@ -78,7 +64,7 @@
 
     <section id="fotos">
         <h2>Galería de Fotos</h2>
-        <p>Disfruta de una selección de imágenes de nuestros scooters, eventos y momentos compartidos entre amigos.</p>
+        <p>Disfruta de una selección de imágenes de nuestras motonetas, eventos y momentos compartidos entre amigos.</p>
 
         <div class="carousel" data-carousel="14">
             <h3>14° Aniversario</h3>
@@ -91,17 +77,8 @@
             <button class="next">&#10095;</button>
             <div class="indicators"></div>
         </div>
-        <p style="text-align:center; margin-top: 15px;">
-            <a href="https://drive.google.com/drive/folders/1GQi5_OeMKB39fODifLhP4SyTF9TlcWRz?usp=drive_link" target="_blank" style="
-                display: inline-block;
-                padding: 10px 20px;
-                background-color: #007BFF;
-                color: #fff;
-                text-decoration: none;
-                border-radius: 8px;
-                font-weight: bold;
-                transition: background-color 0.3s ease;
-            ">
+        <p class="botones">
+            <a href="https://drive.google.com/drive/folders/1GQi5_OeMKB39fODifLhP4SyTF9TlcWRz?usp=drive_link" target="_blank">
                 Ver todas las fotos
             </a>
         </p>
@@ -117,17 +94,8 @@
             <button class="next">&#10095;</button>
             <div class="indicators"></div>
         </div>
-        <p style="text-align:center; margin-top: 15px;">
-            <a href="https://drive.google.com/drive/folders/1_DzUYrWR-omsQQXakbaQ1L5gq8N6aBps?usp=drive_link" target="_blank" style="
-                display: inline-block;
-                padding: 10px 20px;
-                background-color: #007BFF;
-                color: #fff;
-                text-decoration: none;
-                border-radius: 8px;
-                font-weight: bold;
-                transition: background-color 0.3s ease;
-            ">
+        <p class="botones">
+            <a href="https://drive.google.com/drive/folders/1_DzUYrWR-omsQQXakbaQ1L5gq8N6aBps?usp=drive_link" target="_blank">
                 Ver todas las fotos
             </a>
         </p>
@@ -143,17 +111,8 @@
             <button class="next">&#10095;</button>
             <div class="indicators"></div>
         </div>
-        <p style="text-align:center; margin-top: 15px;">
-            <a href="https://drive.google.com/drive/folders/1BnnkagcqQuXxk84HzMxFVJnR6Lo_tIn4?usp=drive_link" target="_blank" style="
-                display: inline-block;
-                padding: 10px 20px;
-                background-color: #007BFF;
-                color: #fff;
-                text-decoration: none;
-                border-radius: 8px;
-                font-weight: bold;
-                transition: background-color 0.3s ease;
-            ">
+        <p class="botones">
+            <a href="https://drive.google.com/drive/folders/1BnnkagcqQuXxk84HzMxFVJnR6Lo_tIn4?usp=drive_link" target="_blank">
                 Ver todas las fotos
             </a>
         </p>
@@ -221,6 +180,7 @@
 
     <section id="historia">
         <h2>Nuestra Historia</h2>
+        <img src="imgs/historia/historia.jpg" alt="historia">
         <p>
             El Club Siambretta Chivilcoy nació de la pasión compartida por un grupo de amigos enamorados de las icónicas motonetas Siambretta. Desde nuestros humildes comienzos, nos hemos reunido para celebrar la historia, la mecánica y la camaradería que estas motocicletas inspiran.
         </p>
