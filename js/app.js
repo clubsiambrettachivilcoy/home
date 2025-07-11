@@ -46,7 +46,16 @@ document.querySelectorAll('.carousel').forEach((carousel) => {
 
 const menuToggle = document.querySelector('.menu-toggle');
 const nav = document.querySelector('nav');
+const navLinks = nav.querySelectorAll('a');
 
 menuToggle.addEventListener('click', () => {
     nav.classList.toggle('active');
 });
+
+// Cerrar el menú al hacer clic en cualquier enlace
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        nav.classList.remove('active');
+    });
+});
+
