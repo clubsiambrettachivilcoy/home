@@ -92,7 +92,7 @@ section {
 
 section h2 {
     color: #3977a4;
-    margin-bottom: 15px;
+    margin-bottom: 0.5rem;
     font-weight: 700;
 }
 
@@ -169,7 +169,7 @@ button.next { right: 15px; }
 }
 
 .salida {
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .salida-img {
