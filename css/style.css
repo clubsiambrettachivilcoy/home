@@ -12,11 +12,6 @@ body {
     margin: 0;
     background-color: #f4f4f4;
     color: #333;
-    background-image: url('../imgs/fondo.jpeg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
 }
 
 header {
@@ -81,14 +76,22 @@ nav a:hover {
     transform: scale(1.05);
 }
 
+/* ===== SECCIONES CON FONDOS ===== */
 section {
-    max-width: 90%;
-    margin: 50px auto;
-    padding: 40px 30px;
-    background: rgb(255 255 255 / 77%);
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 80px 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    transition: background 0.5s ease;
 }
+
+#presentacion { background: #f4f7f8; }   /* gris muy suave */
+#eventos { background: #eaf1f5; }        /* celeste muy suave */
+#servicios { background: #fef9f5; }      /* crema muy suave */
+#salidas { background: #f4f7f8; }        /* gris muy suave */
+#fotos { background: #eaf1f5; }          /* celeste muy suave */
+#ubicacion { background: #fdf2e9; }      /* beige cálido */
+#historia { background: #fef9f5; }       /* crema muy suave */
 
 section h2 {
     color: #3977a4;
@@ -319,10 +322,26 @@ button.next { right: 15px; }
 #servicios video {
     width: 100%;
     max-width: 700px;
-    border-radius: 15px;
-    box-shadow: 10px 10px 30px rgba(0, 0, 0, 1);
     margin-top: 20px;
 }
+
+
+/* Estilos para el iframe del mapa */
+#ubicacion iframe {
+    width: 100%;
+    max-width: 1000px;
+    height: 450px;
+    border: 0;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#ubicacion iframe:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
@@ -388,4 +407,8 @@ button.next { right: 15px; }
         margin: 0 auto;
     }
 
+    #ubicacion iframe {
+        height: 300px;
+    }
 }
+
