@@ -51,7 +51,6 @@ nav {
     flex: 1;
 }
 
-/* Ocultar botón hamburguesa por defecto (desktop) */
 .menu-toggle {
     display: none;
     background: none;
@@ -76,7 +75,6 @@ nav a:hover {
     transform: scale(1.05);
 }
 
-/* ===== SECCIONES CON FONDOS ===== */
 section {
     padding: 80px 30px;
     max-width: 1200px;
