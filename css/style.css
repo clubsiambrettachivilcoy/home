@@ -281,10 +281,10 @@ button.next { right: 15px; }
 }
 
 .whatsapp-btn {
-    background-color: #25D366 !important; /* verde WhatsApp */
-    display: inline-flex; /* alineación en fila */
-    align-items: center;  /* centra verticalmente */
-    gap: 8px;             /* espacio entre logo y texto */
+    background-color: #25D366 !important; 
+    display: inline-flex;
+    align-items: center; 
+    gap: 8px;            
 }
 
 .whatsapp-btn img {
@@ -296,7 +296,6 @@ button.next { right: 15px; }
 .whatsapp-btn:hover {
     background-color: #1ebe5b !important;
 }
-
 
 .redes-sociales {
     margin-top: 15px;
