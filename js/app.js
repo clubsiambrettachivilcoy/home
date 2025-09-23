@@ -42,6 +42,30 @@ document.querySelectorAll('.carousel').forEach((carousel) => {
     nextButton.addEventListener('click', nextImage);
 
     setInterval(nextImage, 4000);  // Automático cada 4 segundos
+
+    // 👇 Agregar soporte para swipe en mobile
+    let startX = 0;
+    let endX = 0;
+
+    imagesContainer.addEventListener("touchstart", (e) => {
+        startX = e.touches[0].clientX;
+    });
+
+    imagesContainer.addEventListener("touchmove", (e) => {
+        endX = e.touches[0].clientX;
+    });
+
+    imagesContainer.addEventListener("touchend", () => {
+        let diff = startX - endX;
+
+        if (Math.abs(diff) > 50) { // umbral para que no dispare con toques cortos
+            if (diff > 0) {
+                nextImage(); // deslizó a la izquierda
+            } else {
+                prevImage(); // deslizó a la derecha
+            }
+        }
+    });
 });
 
 const menuToggle = document.querySelector('.menu-toggle');
