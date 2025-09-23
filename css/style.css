@@ -28,7 +28,7 @@ header {
 }
 
 header img {
-    max-width: 80px;
+    max-width: 50px;
     height: auto;
 }
 
@@ -362,10 +362,6 @@ button.next { right: 15px; }
     .menu-toggle {
         display: block;
         font-size: 2rem;
-    }
-
-    header img {
-        max-width: 50px;
     }
 
     /* Ocultar nav por defecto */
