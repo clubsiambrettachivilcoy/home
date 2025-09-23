@@ -346,6 +346,11 @@ button.next { right: 15px; }
     /* Mostrar botón hamburguesa */
     .menu-toggle {
         display: block;
+        font-size: 2rem;
+    }
+
+    header img {
+        max-width: 50px;
     }
 
     /* Ocultar nav por defecto */
