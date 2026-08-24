@@ -68,18 +68,97 @@ document.querySelectorAll('.carousel').forEach((carousel) => {
     });
 });
 
-const menuToggle = document.querySelector('.menu-toggle');
-const nav = document.querySelector('nav');
-const navLinks = nav.querySelectorAll('a');
+// 👇 Carga dinámica de eventos y salidas desde JSON (Panel Admin)
+async function cargarDatosDinamicos() {
+    try {
+        const resEvento = await fetch('data/eventos.json');
+        if (resEvento.ok) {
+            const evento = await resEvento.json();
+            renderEvento(evento);
+        }
+    } catch (e) {
+        console.log('Usando contenido HTML estático para eventos');
+    }
 
-menuToggle.addEventListener('click', () => {
-    nav.classList.toggle('active');
-});
+    try {
+        const resSalidas = await fetch('data/salidas.json');
+        if (resSalidas.ok) {
+            const data = await resSalidas.json();
+            const salidas = data.salidas || data;
+            renderSalidas(salidas);
+        }
+    } catch (e) {
+        console.log('Usando contenido HTML estático para salidas');
+    }
+}
 
-// Cerrar el menú al hacer clic en cualquier enlace
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        nav.classList.remove('active');
+function renderEvento(evento) {
+    const sec = document.getElementById('eventos');
+    if (!sec || !evento) return;
+    
+    let html = `<h2>${evento.titulo_seccion || 'Proximo evento'}</h2>`;
+    if (evento.descripcion) {
+        html += `<p>${evento.descripcion}</p>`;
+    }
+    if (evento.imagen) {
+        html += `<div class="evento-card"><img src="${evento.imagen}" alt="${evento.alt_imagen || 'Evento'}" class="evento-img"></div>`;
+    }
+    if (evento.mostrar_botones) {
+        html += `<div class="botonesEvento">`;
+        if (evento.link_itinerario) {
+            html += `<p class="botones"><a href="${evento.link_itinerario}" target="_blank">Itinerario</a></p>`;
+        }
+        if (evento.link_inscripcion) {
+            html += `<p class="botones"><a href="${evento.link_inscripcion}" target="_blank">Inscripción</a></p>`;
+        }
+        if (evento.whatsapp) {
+            html += `<p class="botones"><a href="https://wa.me/${evento.whatsapp}" target="_blank" class="whatsapp-btn"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"> WhatsApp</a></p>`;
+        }
+        html += `</div>`;
+    }
+    sec.innerHTML = html;
+}
+
+function renderSalidas(salidas) {
+    const sec = document.getElementById('salidas');
+    if (!sec || !Array.isArray(salidas)) return;
+
+    let html = `<h2>Salidas</h2>`;
+    salidas.forEach(salida => {
+        html += `<div class="salida">
+            <h4>${salida.titulo}</h4>
+            <div class="salida-img">`;
+        if (Array.isArray(salida.imagenes)) {
+            salida.imagenes.forEach(img => {
+                const src = typeof img === 'string' ? img : img.imagen;
+                html += `<img src="${src}" alt="salida">`;
+            });
+        }
+        html += `</div></div>`;
     });
+    sec.innerHTML = html;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    cargarDatosDinamicos();
+    
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('nav');
+    const navLinks = nav ? nav.querySelectorAll('a') : [];
+
+    if (menuToggle && nav) {
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        // Cerrar el menú al hacer clic en cualquier enlace
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+            });
+        });
+    }
 });
+
+
 

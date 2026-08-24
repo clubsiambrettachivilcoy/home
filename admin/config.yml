@@ -1,0 +1,41 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "imgs/uploads"
+public_folder: "imgs/uploads"
+
+collections:
+  - name: "configuracion_evento"
+    label: "Próximo Evento"
+    files:
+      - file: "data/eventos.json"
+        label: "Información del Próximo Evento"
+        name: "evento"
+        fields:
+          - { label: "Título de la sección", name: "titulo_seccion", widget: "string", default: "Proximo evento" }
+          - { label: "Descripción del evento", name: "descripcion", widget: "text" }
+          - { label: "Afiche / Imagen del Evento", name: "imagen", widget: "image" }
+          - { label: "Texto alternativo del afiche", name: "alt_imagen", widget: "string", default: "Próximo Evento" }
+          - { label: "Mostrar botones (Itinerario, Inscripción, WhatsApp)", name: "mostrar_botones", widget: "boolean", default: false }
+          - { label: "Link del Itinerario", name: "link_itinerario", widget: "string", required: false }
+          - { label: "Link de Inscripción", name: "link_inscripcion", widget: "string", required: false }
+          - { label: "Teléfono WhatsApp (ej. 5491165710408)", name: "whatsapp", widget: "string", required: false }
+
+  - name: "salidas_collection"
+    label: "Salidas"
+    files:
+      - file: "data/salidas.json"
+        label: "Listado de Salidas"
+        name: "salidas_list"
+        fields:
+          - name: "salidas"
+            label: "Salidas Realizadas"
+            widget: "list"
+            summary: "{{fields.titulo}}"
+            fields:
+              - { label: "Título de la Salida y Fecha", name: "titulo", widget: "string" }
+              - name: "imagenes"
+                label: "Fotos de la salida"
+                widget: "list"
+                field: { label: "Imagen", name: "imagen", widget: "image" }

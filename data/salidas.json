@@ -1,0 +1,44 @@
+{
+  "salidas": [
+    {
+      "titulo": "Participación \"Encuentro Multimarcas organizado por el Club Chevrolet Chivilcoy\" - 23/08/2026",
+      "imagenes": [
+        "imgs/salidas/salida5/1.jpg",
+        "imgs/salidas/salida5/2.jpg",
+        "imgs/salidas/salida5/3.jpg"
+      ]
+    },
+    {
+      "titulo": "Participación \"Encuentro Nacional de Artesanos\" en Chivilcoy - 10/08/2025",
+      "imagenes": [
+        "imgs/salidas/salida4/1.jpeg",
+        "imgs/salidas/salida4/2.jpeg",
+        "imgs/salidas/salida4/3.jpeg"
+      ]
+    },
+    {
+      "titulo": "Visita antigua pulperia \"La Posta de Chacabuco\" - 07/06/2025",
+      "imagenes": [
+        "imgs/salidas/salida1/1.jpeg",
+        "imgs/salidas/salida1/2.jpeg",
+        "imgs/salidas/salida1/3.jpeg"
+      ]
+    },
+    {
+      "titulo": "4 Juntada Siambrettera del Sur - 08/04/2025 y 09/04/2025",
+      "imagenes": [
+        "imgs/salidas/salida2/1.jpeg",
+        "imgs/salidas/salida2/2.jpeg",
+        "imgs/salidas/salida2/3.jpeg"
+      ]
+    },
+    {
+      "titulo": "10° Aniversario Scooter Clásico Mar del Plata - 28/09/2024 y 29/09/2024",
+      "imagenes": [
+        "imgs/salidas/salida3/1.jpg",
+        "imgs/salidas/salida3/2.jpg",
+        "imgs/salidas/salida3/3.jpg"
+      ]
+    }
+  ]
+}
