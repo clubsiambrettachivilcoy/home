@@ -13,7 +13,7 @@ let estado = {
   salidas: []
 };
 
-// Clave por defecto
+// Clave por defecto local
 const CLAVE_CORRECTA = "siambretta2025";
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initGitHubConfig();
 });
 
-// --- AUTENTICACIÓN SIMPLE ---
+// --- AUTENTICACIÓN FLEXIBLE Y SEGURA ---
 function initLogin() {
   const loginOverlay = document.getElementById('loginOverlay');
   const loginForm = document.getElementById('loginForm');
@@ -34,15 +34,40 @@ function initLogin() {
     loginOverlay.style.display = 'none';
   }
 
-  loginForm.addEventListener('submit', (e) => {
+  loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (passInput.value === CLAVE_CORRECTA) {
+    const inputVal = passInput.value.trim();
+    loginError.style.display = 'none';
+
+    // 1. Si ingresa la contraseña local predeterminada
+    if (inputVal === CLAVE_CORRECTA) {
       sessionStorage.setItem('admin_autenticado', 'true');
       loginOverlay.style.display = 'none';
       mostrarToast('¡Bienvenido al Panel de Administración!');
-    } else {
-      loginError.style.display = 'block';
+      return;
     }
+
+    // 2. Si ingresa un Token de GitHub directo (ghp_... o github_pat_...)
+    if (inputVal.startsWith('ghp_') || inputVal.startsWith('github_pat_')) {
+      try {
+        const res = await fetch('https://api.github.com/user', {
+          headers: { 'Authorization': `token ${inputVal}` }
+        });
+        if (res.ok) {
+          const user = await res.json();
+          localStorage.setItem('gh_token', inputVal);
+          if (user.login) localStorage.setItem('gh_owner', user.login);
+          sessionStorage.setItem('admin_autenticado', 'true');
+          loginOverlay.style.display = 'none';
+          document.getElementById('gh_token').value = inputVal;
+          mostrarToast(`¡Autenticado como ${user.login} en GitHub!`);
+          return;
+        }
+      } catch (err) {}
+    }
+
+    // Si fallan ambos
+    loginError.style.display = 'block';
   });
 
   document.getElementById('logoutBtn').addEventListener('click', () => {
@@ -51,6 +76,7 @@ function initLogin() {
     passInput.value = '';
   });
 }
+
 
 // --- PESTAÑAS ---
 function initTabs() {

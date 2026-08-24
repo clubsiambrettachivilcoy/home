@@ -9,7 +9,16 @@
   <link rel="icon" href="../imgs/logos/Logo2_CSC.png" type="image/png">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="admin.css">
+
+  <script>
+    // Limpiar residuos de redirección o cookies de Netlify anteriores en el navegador
+    if (window.location.hash.includes('access_token') || window.location.hash.includes('invite_token')) {
+      history.replaceState(null, "", window.location.pathname);
+    }
+    try { localStorage.removeItem('gotrue.user'); } catch(e){}
+  </script>
 </head>
+
 <body>
 
   <!-- Pantalla de Login / Bloqueo -->
@@ -21,15 +30,16 @@
 
       <form id="loginForm">
         <div class="form-group">
-          <input type="password" id="passInput" class="form-control" placeholder="Ingresa la contraseña admin..." required>
+          <input type="password" id="passInput" class="form-control" placeholder="Ingresa tu contraseña o Token de GitHub..." required>
         </div>
         <p id="loginError" style="color: var(--danger-color); font-size: 0.85rem; display: none; margin-bottom: 1rem;">
-          ❌ Contraseña incorrecta
+          ❌ Contraseña o Token de GitHub no válido
         </p>
         <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
           🔑 Ingresar al Panel
         </button>
       </form>
+
     </div>
   </div>
 
