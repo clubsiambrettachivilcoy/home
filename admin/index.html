@@ -1,27 +1,217 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel de Administración | Club Siambretta Chivilcoy</title>
-  <!-- Widget de Autenticación con Email/Password (Netlify Identity) -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script>
-    // Inicializar Netlify Identity solo si se especifica la URL de Netlify cuando el sitio se aloja en GitHub Pages
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
-      });
-    }
-  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Control | Club Siambretta Chivilcoy</title>
+
+  <!-- Google Fonts & Favicon -->
+  <link rel="icon" href="../imgs/logos/Logo2_CSC.png" type="image/png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="admin.css">
 </head>
 <body>
-  <!-- Carga de Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+  <!-- Pantalla de Login / Bloqueo -->
+  <div class="login-overlay" id="loginOverlay">
+    <div class="login-card">
+      <img src="../imgs/logos/Logo2_CSC.png" alt="Club Siambretta Chivilcoy">
+      <h2>Club Siambretta Chivilcoy</h2>
+      <p>Panel de Administración</p>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <input type="password" id="passInput" class="form-control" placeholder="Ingresa la contraseña admin..." required>
+        </div>
+        <p id="loginError" style="color: var(--danger-color); font-size: 0.85rem; display: none; margin-bottom: 1rem;">
+          ❌ Contraseña incorrecta
+        </p>
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+          🔑 Ingresar al Panel
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Encabezado del Panel -->
+  <header>
+    <div class="header-brand">
+      <img src="../imgs/logos/Logo2_CSC.png" alt="Logo">
+      <div>
+        <h1>Club Siambretta Chivilcoy</h1>
+        <span style="font-size: 0.8rem; color: var(--text-muted);">Panel de Control</span>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <a href="../index.html" target="_blank" class="btn btn-outline" style="text-decoration: none;">
+        🌐 Ver Sitio Público
+      </a>
+      <button class="btn btn-danger" id="logoutBtn">
+        🚪 Salir
+      </button>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal -->
+  <div class="app-container">
+
+    <!-- Navegación de Pestañas -->
+    <div class="tabs-nav">
+      <button class="tab-btn active" data-tab="tabEvento">
+        📌 Próximo Evento
+      </button>
+      <button class="tab-btn" data-tab="tabSalidas">
+        🏍️ Salidas y Eventos Anteriores
+      </button>
+      <button class="tab-btn" data-tab="tabGitHub">
+        🚀 Publicar en la Web (GitHub)
+      </button>
+    </div>
+
+    <!-- Pestaña 1: PRÓXIMO EVENTO -->
+    <div class="tab-content active" id="tabEvento">
+      <div class="panel-card">
+        <h3>📌 Editar Próximo Evento</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+          Modifica los detalles del afiche, descripción y botones que aparecerán en la sección principal del próximo evento.
+        </p>
+
+        <form id="formEvento">
+          <div class="form-group">
+            <label>Título de la Sección</label>
+            <input type="text" id="ev_titulo" class="form-control" placeholder="Ej. Proximo evento">
+          </div>
+
+          <div class="form-group">
+            <label>Descripción del Evento</label>
+            <textarea id="ev_descripcion" class="form-control" placeholder="Ej. Amigos siambretteros, se viene la gran reunión nacional..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Afiche / Imagen del Evento</label>
+            <input type="text" id="ev_imagen" class="form-control" placeholder="Ruta o URL de la imagen (ej. imgs/eventos/evento-16.png)">
+            <label class="file-picker-btn">
+              📁 Seleccionar imagen desde la computadora
+              <input type="file" id="ev_file_input" accept="image/*">
+            </label>
+            
+            <!-- Vista Previa -->
+            <div style="margin-top: 1rem;">
+              <span style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem;">Vista previa de la imagen:</span>
+              <img id="ev_img_preview" src="" alt="Vista Previa" style="max-height: 250px; border-radius: 0.5rem; border: 1px solid var(--card-border); display: none;">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Texto Alternativo de la Imagen</label>
+            <input type="text" id="ev_alt" class="form-control" placeholder="Ej. 16° Aniversario">
+          </div>
+
+          <div class="panel-card" style="background: #0f172a; border-style: dashed;">
+            <div class="form-group toggle-group">
+              <label class="switch">
+                <input type="checkbox" id="ev_mostrar_botones">
+                <span class="slider"></span>
+              </label>
+              <div>
+                <strong>Mostrar Botones de Acción</strong>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">Activa esta opción para mostrar los botones de Itinerario, Inscripción y WhatsApp.</p>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Enlace del Itinerario (Google Docs / PDF)</label>
+              <input type="url" id="ev_itinerario" class="form-control" placeholder="https://docs.google.com/document/d/...">
+            </div>
+
+            <div class="form-group">
+              <label>Enlace del Formulario de Inscripción (Google Forms)</label>
+              <input type="url" id="ev_inscripcion" class="form-control" placeholder="https://docs.google.com/forms/d/...">
+            </div>
+
+            <div class="form-group">
+              <label>Teléfono WhatsApp de Contacto (sin + ni espacios)</label>
+              <input type="text" id="ev_whatsapp" class="form-control" placeholder="Ej. 5491165710408">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Pestaña 2: SALIDAS -->
+    <div class="tab-content" id="tabSalidas">
+      <div class="panel-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <div>
+            <h3>🏍️ Administrar Salidas y Eventos Anteriores</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">
+              Agrega, modifica o elimina las fotos y títulos de las salidas registradas.
+            </p>
+          </div>
+          <button class="btn btn-success" onclick="agregarSalidaNueva()">
+            ➕ Nueva Salida
+          </button>
+        </div>
+
+        <div class="salidas-list" id="salidasList">
+          <!-- Carga dinámica de salidas -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Pestaña 3: PUBLICACIÓN Y GITHUB -->
+    <div class="tab-content" id="tabGitHub">
+      <div class="panel-card">
+        <h3>🚀 Publicar Cambios en la Web (GitHub Pages)</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+          Ingresa tus credenciales de GitHub una sola vez para que el botón de publicar guarde y actualice la página en vivo automáticamente.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+          <div class="form-group">
+            <label>Usuario de GitHub</label>
+            <input type="text" id="gh_owner" class="form-control" placeholder="Ej. clubsiambrettachivilcoy">
+          </div>
+
+          <div class="form-group">
+            <label>Nombre del Repositorio</label>
+            <input type="text" id="gh_repo" class="form-control" placeholder="Ej. home">
+          </div>
+
+          <div class="form-group">
+            <label>Rama (Branch)</label>
+            <input type="text" id="gh_branch" class="form-control" value="main">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Token de Acceso Personal de GitHub (Personal Access Token)</label>
+          <input type="password" id="gh_token" class="form-control" placeholder="github_pat_11A...">
+          <small style="color: var(--text-muted); font-size: 0.8rem; display: block; margin-top: 0.25rem;">
+            Se guarda solo en tu navegador. Puedes generar uno gratis en GitHub > Settings > Developer Settings > Personal access tokens.
+          </small>
+        </div>
+
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;">
+          <button class="btn btn-primary btn-lg" id="btnGuardarGitHub" style="font-size: 1rem; padding: 0.85rem 1.75rem;">
+            🚀 Guardar y Publicar en la Web
+          </button>
+
+          <button class="btn btn-outline" id="btnDescargarJSON">
+            💾 Descargar Copia de Respaldo (JSON)
+          </button>
+        </div>
+
+        <div id="githubStatus" style="margin-top: 1.5rem; font-weight: 500;"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Contenedor para Notificaciones Toast -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="admin.js"></script>
 </body>
 </html>
-

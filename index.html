@@ -215,20 +215,7 @@
         </div>
     </footer>
 
-    <!-- Netlify Identity Widget para Autenticación del Panel Admin -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", user => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-      }
-    </script>
-
     <script src="js/app.js"></script>
 </body>
-</html>
+</html>
+
