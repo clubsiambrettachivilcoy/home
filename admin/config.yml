@@ -5,8 +5,9 @@ backend:
 local_backend: true
 
 
-media_folder: "imgs/uploads"
-public_folder: "imgs/uploads"
+media_folder: "imgs"
+public_folder: "imgs"
+
 
 collections:
   - name: "configuracion_evento"
