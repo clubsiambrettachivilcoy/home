@@ -199,7 +199,49 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    initLightbox();
 });
+
+function initLightbox() {
+    const modal = document.getElementById('lightboxModal');
+    const modalImg = document.getElementById('lightboxImg');
+    const captionText = document.getElementById('lightboxCaption');
+    const closeBtn = document.querySelector('.lightbox-close');
+
+    if (!modal || !modalImg) return;
+
+    document.body.addEventListener('click', (e) => {
+        if (e.target.tagName === 'IMG' && (
+            e.target.closest('.salida-img') || 
+            e.target.closest('.carousel-images') || 
+            e.target.closest('.evento-card') ||
+            e.target.closest('.historia-img-wrapper')
+        )) {
+            modal.classList.add('active');
+            modalImg.src = e.target.src;
+            captionText.innerText = e.target.alt || 'Club Siambretta Chivilcoy';
+        }
+    });
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+    }
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            modal.classList.remove('active');
+        }
+    });
+}
 
 
 
