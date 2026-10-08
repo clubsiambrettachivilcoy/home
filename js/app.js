@@ -109,12 +109,15 @@ function renderEvento(evento) {
     const sec = document.getElementById('eventos');
     if (!sec || !evento) return;
     
-    let html = `<h2>${evento.titulo_seccion || 'Proximo evento'}</h2>`;
+    let html = `<h2>${evento.titulo_seccion || 'Próximo Evento'}</h2>`;
     if (evento.descripcion) {
         html += `<p>${evento.descripcion}</p>`;
     }
     if (evento.imagen) {
-        html += `<div class="evento-card"><img src="${evento.imagen}" alt="${evento.alt_imagen || 'Evento'}" class="evento-img"></div>`;
+        html += `<div class="evento-card">
+            <span class="event-badge">🔥 PRÓXIMO ENCUENTRO NACIONAL</span>
+            <img src="${evento.imagen}" alt="${evento.alt_imagen || 'Evento'}" class="evento-img">
+        </div>`;
     }
     if (evento.mostrar_botones) {
         html += `<div class="botonesEvento">`;
