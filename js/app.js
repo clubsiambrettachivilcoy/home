@@ -109,15 +109,12 @@ function renderEvento(evento) {
     const sec = document.getElementById('eventos');
     if (!sec || !evento) return;
     
-    let html = `<h2>${evento.titulo_seccion || 'Próximo Evento'}</h2>`;
+    let html = `<h2>${evento.titulo_seccion || 'Proximo evento'}</h2>`;
     if (evento.descripcion) {
         html += `<p>${evento.descripcion}</p>`;
     }
     if (evento.imagen) {
-        html += `<div class="evento-card">
-            <span class="event-badge">🔥 PRÓXIMO ENCUENTRO NACIONAL</span>
-            <img src="${evento.imagen}" alt="${evento.alt_imagen || 'Evento'}" class="evento-img">
-        </div>`;
+        html += `<div class="evento-card"><img src="${evento.imagen}" alt="${evento.alt_imagen || 'Evento'}" class="evento-img"></div>`;
     }
     if (evento.mostrar_botones) {
         html += `<div class="botonesEvento">`;
@@ -202,49 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-
-    initLightbox();
 });
-
-function initLightbox() {
-    const modal = document.getElementById('lightboxModal');
-    const modalImg = document.getElementById('lightboxImg');
-    const captionText = document.getElementById('lightboxCaption');
-    const closeBtn = document.querySelector('.lightbox-close');
-
-    if (!modal || !modalImg) return;
-
-    document.body.addEventListener('click', (e) => {
-        if (e.target.tagName === 'IMG' && (
-            e.target.closest('.salida-img') || 
-            e.target.closest('.carousel-images') || 
-            e.target.closest('.evento-card') ||
-            e.target.closest('.historia-img-wrapper')
-        )) {
-            modal.classList.add('active');
-            modalImg.src = e.target.src;
-            captionText.innerText = e.target.alt || 'Club Siambretta Chivilcoy';
-        }
-    });
-
-    if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
-            modal.classList.remove('active');
-        });
-    }
-
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-        }
-    });
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            modal.classList.remove('active');
-        }
-    });
-}
 
 
 
