@@ -15,9 +15,7 @@ body {
 }
 
 header {
-    background: rgba(44, 90, 127, 0.88);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: #1a365d;
     color: white;
     display: flex;
     justify-content: space-between;
@@ -27,8 +25,8 @@ header {
     position: sticky;
     top: 0;
     z-index: 999;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 header img {
@@ -50,7 +48,7 @@ header h1 {
 header p {
     margin: 0;
     font-size: 1rem;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 nav {
@@ -70,17 +68,18 @@ nav {
 }
 
 nav a {
-    color: white;
+    color: #ffffff;
     text-decoration: none;
     padding: 8px 15px;
     border-radius: 6px;
     font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
     white-space: nowrap;
 }
 
 nav a:hover {
-    background-color: #244b6a;
+    background-color: #0f2942;
+    color: #ffd700;
     transform: scale(1.05);
 }
 
@@ -102,13 +101,16 @@ section {
 #historia { background: #fef9f5; }       /* crema muy suave */
 
 section h2 {
-    color: #3977a4;
+    color: #1a365d;
     margin-bottom: 0.5rem;
+    font-size: 2rem;
     font-weight: 700;
 }
 
 section p {
     line-height: 1.8;
+    color: #2d3748;
+    font-weight: 400;
 }
 
 footer {
@@ -500,12 +502,12 @@ button.next { right: 15px; }
 
 /* --- HERO BANNER --- */
 .hero-section {
-    background: linear-gradient(135deg, rgba(20, 45, 68, 0.88), rgba(44, 90, 127, 0.8)), url('../imgs/fondo.jpeg') center/cover no-repeat;
-    color: white;
+    background: linear-gradient(135deg, rgba(10, 25, 40, 0.94), rgba(20, 48, 72, 0.90)), url('../imgs/fondo.jpeg') center/cover no-repeat;
+    color: #ffffff;
     padding: 100px 20px 80px 20px;
     text-align: center;
     border-radius: 0 0 25px 25px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
     margin-bottom: 20px;
 }
 
@@ -516,30 +518,31 @@ button.next { right: 15px; }
 
 .hero-badge {
     display: inline-block;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: #ffd700;
+    background: #cf1522;
+    color: #ffffff;
     font-size: 0.85rem;
     font-weight: 700;
-    padding: 6px 16px;
+    padding: 6px 18px;
     border-radius: 30px;
     margin-bottom: 15px;
     letter-spacing: 1px;
+    box-shadow: 0 4px 12px rgba(207, 21, 34, 0.4);
 }
 
 .hero-section h1 {
     font-size: 2.8rem;
     font-weight: 700;
     margin-bottom: 15px;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
 .hero-section p {
     font-size: 1.15rem;
     line-height: 1.8;
-    opacity: 0.95;
+    color: #f0f4f8;
     margin-bottom: 30px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
 }
 
 .hero-actions {
@@ -553,14 +556,14 @@ button.next { right: 15px; }
     display: inline-block;
     padding: 12px 28px;
     border-radius: 30px;
-    font-weight: 600;
+    font-weight: 700;
     text-decoration: none;
     transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
 
 .hero-btn.primary {
     background: linear-gradient(135deg, #e52d27, #b31217);
-    color: white;
+    color: #ffffff;
     box-shadow: 0 4px 15px rgba(229, 45, 39, 0.4);
 }
 
@@ -570,13 +573,14 @@ button.next { right: 15px; }
 }
 
 .hero-btn.secondary {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: #ffffff;
+    color: #1a365d;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .hero-btn.secondary:hover {
-    background: rgba(255, 255, 255, 0.35);
+    background: #f0f4f8;
     transform: translateY(-3px);
 }
 
@@ -614,7 +618,7 @@ button.next { right: 15px; }
 
 .timeline {
     position: relative;
-    border-left: 3px solid #3977a4;
+    border-left: 3px solid #1a365d;
     padding-left: 25px;
 }
 
@@ -634,28 +638,29 @@ button.next { right: 15px; }
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background: #3977a4;
+    background: #1a365d;
     border: 3px solid #ffffff;
-    box-shadow: 0 0 0 3px rgba(57, 119, 164, 0.3);
+    box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.3);
 }
 
 .timeline-content {
     background: #ffffff;
-    padding: 15px 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    border: 1px solid rgba(0,0,0,0.05);
+    padding: 18px 22px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.08);
 }
 
 .timeline-content h3 {
-    color: #3977a4;
-    font-size: 1.1rem;
+    color: #1a365d;
+    font-size: 1.15rem;
+    font-weight: 700;
     margin-bottom: 6px;
 }
 
 .timeline-content p {
     font-size: 0.95rem;
-    color: #555;
+    color: #2d3748;
     line-height: 1.6;
 }
 
@@ -691,11 +696,12 @@ button.next { right: 15px; }
 .float-tooltip {
     position: absolute;
     right: 70px;
-    background: #333;
-    color: white;
+    background: #1a202c;
+    color: #ffffff;
     padding: 6px 12px;
     border-radius: 8px;
     font-size: 0.85rem;
+    font-weight: 600;
     white-space: nowrap;
     opacity: 0;
     visibility: hidden;
@@ -717,7 +723,7 @@ button.next { right: 15px; }
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.88);
+    background-color: rgba(0, 0, 0, 0.92);
     backdrop-filter: blur(8px);
     align-items: center;
     justify-content: center;
@@ -760,8 +766,8 @@ button.next { right: 15px; }
 
 /* --- FOOTER MODERNO --- */
 footer {
-    background: #1e3a52;
-    color: white;
+    background: #0f2338;
+    color: #ffffff;
     padding: 50px 20px 20px 20px;
     text-align: left;
 }
@@ -784,38 +790,41 @@ footer {
     font-size: 1.3rem;
     margin-bottom: 10px;
     color: #ffffff;
+    font-weight: 700;
 }
 
 .footer-brand p {
-    font-size: 0.9rem;
-    color: #a0aec0;
+    font-size: 0.95rem;
+    color: #e2e8f0;
     line-height: 1.6;
 }
 
 .footer-links h4, .footer-social h4 {
     color: #ffd700;
     font-size: 1.05rem;
+    font-weight: 700;
     margin-bottom: 15px;
 }
 
 .footer-links a {
     display: block;
-    color: #cbd5e0;
+    color: #ffffff;
     text-decoration: none;
     margin-bottom: 8px;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    font-weight: 500;
     transition: color 0.2s ease;
 }
 
 .footer-links a:hover {
-    color: #ffffff;
+    color: #ffd700;
 }
 
 .footer-bottom {
     text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
     padding-top: 20px;
-    font-size: 0.85rem;
-    color: #a0aec0;
+    font-size: 0.9rem;
+    color: #e2e8f0;
 }
 
