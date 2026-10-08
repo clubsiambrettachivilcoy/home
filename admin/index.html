@@ -71,6 +71,9 @@
       <button class="tab-btn active" data-tab="tabEvento">
         📌 Próximo Evento
       </button>
+      <button class="tab-btn" data-tab="tabAuspiciantes">
+        🏷️ Auspiciantes
+      </button>
       <button class="tab-btn" data-tab="tabSalidas">
         🏍️ Salidas y Eventos Anteriores
       </button>
@@ -149,7 +152,28 @@
       </div>
     </div>
 
-    <!-- Pestaña 2: SALIDAS -->
+    <!-- Pestaña 2: AUSPICIANTES -->
+    <div class="tab-content" id="tabAuspiciantes">
+      <div class="panel-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <div>
+            <h3>🏷️ Administrar Auspiciantes</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">
+              Agrega, modifica o elimina los logos y enlaces de los auspiciantes del evento.
+            </p>
+          </div>
+          <button class="btn btn-success" onclick="agregarAuspicianteNuevo()">
+            ➕ Nuevo Auspiciante
+          </button>
+        </div>
+
+        <div class="auspiciantes-list" id="auspiciantesList">
+          <!-- Carga dinámica de auspiciantes -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Pestaña 3: SALIDAS -->
     <div class="tab-content" id="tabSalidas">
       <div class="panel-card">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">

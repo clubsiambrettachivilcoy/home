@@ -1,0 +1,2 @@
+Coloca aquí los archivos de imagen de los logos de los auspiciantes (por ejemplo: logo1.png, logo2.jpg, etc.).
+Luego referencia cada logo dentro de la sección #auspiciantes en index.html o data/auspiciantes.json.

@@ -90,6 +90,19 @@ async function cargarDatosDinamicos() {
     } catch (e) {
         console.log('Usando contenido HTML estático para salidas');
     }
+
+    try {
+        const resAuspiciantes = await fetch('data/auspiciantes.json');
+        if (resAuspiciantes.ok) {
+            const data = await resAuspiciantes.json();
+            const auspiciantes = data.auspiciantes || data;
+            if (Array.isArray(auspiciantes) && auspiciantes.length > 0) {
+                renderAuspiciantes(auspiciantes);
+            }
+        }
+    } catch (e) {
+        console.log('Usando contenido HTML estático para auspiciantes');
+    }
 }
 
 function renderEvento(evento) {
@@ -136,6 +149,34 @@ function renderSalidas(salidas) {
         }
         html += `</div></div>`;
     });
+    sec.innerHTML = html;
+}
+
+function renderAuspiciantes(auspiciantes) {
+    const sec = document.getElementById('auspiciantes');
+    if (!sec || !Array.isArray(auspiciantes) || auspiciantes.length === 0) return;
+
+    let html = `<h2>Nuestros Auspiciantes</h2>
+    <p>Agradecemos especialmente a las empresas y comercios que acompañan y hacen posible nuestro evento.</p>
+    <div class="auspiciantes-grid">`;
+
+    auspiciantes.forEach(ausp => {
+        const src = typeof ausp === 'string' ? ausp : ausp.imagen;
+        const nombre = (typeof ausp === 'object' && ausp.nombre) ? ausp.nombre : 'Auspiciante';
+        const link = (typeof ausp === 'object' && ausp.link) ? ausp.link : '';
+
+        if (link) {
+            html += `<a href="${link}" target="_blank" rel="noopener noreferrer" class="auspiciante-card">
+                <img src="${src}" alt="${nombre}">
+            </a>`;
+        } else {
+            html += `<div class="auspiciante-card">
+                <img src="${src}" alt="${nombre}">
+            </div>`;
+        }
+    });
+
+    html += `</div>`;
     sec.innerHTML = html;
 }
 

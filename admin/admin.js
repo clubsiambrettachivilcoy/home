@@ -10,7 +10,8 @@ let estado = {
     link_inscripcion: "",
     whatsapp: ""
   },
-  salidas: []
+  salidas: [],
+  auspiciantes: []
 };
 
 // Clave por defecto local
@@ -114,8 +115,19 @@ async function cargarDatos() {
     console.log('Cargando salidas por defecto');
   }
 
+  try {
+    const resAus = await fetch('../data/auspiciantes.json');
+    if (resAus.ok) {
+      const data = await resAus.json();
+      estado.auspiciantes = data.auspiciantes || data;
+    }
+  } catch (e) {
+    console.log('Cargando auspiciantes por defecto');
+  }
+
   poblarFormularioEvento();
   poblarListaSalidas();
+  poblarListaAuspiciantes();
 }
 
 // --- GESTIÓN DE EVENTO ---
@@ -262,6 +274,94 @@ function eliminarFotoSalida(sIdx, imgIdx) {
   }
 }
 
+// --- GESTIÓN DE AUSPICIANTES ---
+function poblarListaAuspiciantes() {
+  const container = document.getElementById('auspiciantesList');
+  if (!container) return;
+  container.innerHTML = '';
+
+  if (!Array.isArray(estado.auspiciantes)) estado.auspiciantes = [];
+
+  estado.auspiciantes.forEach((ausp, aIdx) => {
+    const card = document.createElement('div');
+    card.className = 'salida-card';
+    const displaySrc = ausp.imagen ? (ausp.imagen.startsWith('data:') ? ausp.imagen : `../${ausp.imagen}`) : '';
+
+    card.innerHTML = `
+      <div class="salida-header">
+        <strong>Auspiciante #${aIdx + 1}</strong>
+        <button type="button" class="btn btn-danger btn-sm" onclick="eliminarAuspiciante(${aIdx})">🗑️ Eliminar</button>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+        <div class="form-group">
+          <label>Nombre del Auspiciante / Comercio</label>
+          <input type="text" class="form-control" value="${escapeHtml(ausp.nombre || '')}" oninput="actualizarNombreAuspiciante(${aIdx}, this.value)" placeholder="Ej. YPF / Garbarino / Taller Don José">
+        </div>
+        <div class="form-group">
+          <label>Enlace Web o Redes (Opcional)</label>
+          <input type="url" class="form-control" value="${escapeHtml(ausp.link || '')}" oninput="actualizarLinkAuspiciante(${aIdx}, this.value)" placeholder="https://instagram.com/...">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Logo del Auspiciante</label>
+        <input type="text" class="form-control" value="${escapeHtml(ausp.imagen || '')}" oninput="actualizarRutaImagenAuspiciante(${aIdx}, this.value)" placeholder="Ruta o URL (ej. imgs/auspiciantes/logo.png)">
+        <label class="file-picker-btn" style="margin-top: 0.5rem;">
+          📁 Cargar Logo desde tu Computadora
+          <input type="file" accept="image/*" onchange="cambiarImagenAuspiciante(${aIdx}, this)">
+        </label>
+        ${displaySrc ? `<div style="margin-top:0.75rem;"><img src="${displaySrc}" alt="Logo" style="max-height:80px; border-radius:6px; border:1px solid var(--card-border); background:#fff; padding:4px;"></div>` : ''}
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function actualizarNombreAuspiciante(aIdx, val) {
+  if (estado.auspiciantes[aIdx]) estado.auspiciantes[aIdx].nombre = val;
+}
+
+function actualizarLinkAuspiciante(aIdx, val) {
+  if (estado.auspiciantes[aIdx]) estado.auspiciantes[aIdx].link = val;
+}
+
+function actualizarRutaImagenAuspiciante(aIdx, val) {
+  if (estado.auspiciantes[aIdx]) {
+    estado.auspiciantes[aIdx].imagen = val;
+    poblarListaAuspiciantes();
+  }
+}
+
+function cambiarImagenAuspiciante(aIdx, input) {
+  const file = input.files[0];
+  if (file && estado.auspiciantes[aIdx]) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      estado.auspiciantes[aIdx].imagen = e.target.result;
+      poblarListaAuspiciantes();
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+function agregarAuspicianteNuevo() {
+  if (!Array.isArray(estado.auspiciantes)) estado.auspiciantes = [];
+  estado.auspiciantes.push({
+    nombre: "Nuevo Auspiciante",
+    imagen: "imgs/auspiciantes/logo.png",
+    link: ""
+  });
+  poblarListaAuspiciantes();
+  mostrarToast('Nuevo auspiciante agregado');
+}
+
+function eliminarAuspiciante(aIdx) {
+  if (confirm('¿Estás seguro de eliminar este auspiciante?')) {
+    estado.auspiciantes.splice(aIdx, 1);
+    poblarListaAuspiciantes();
+    mostrarToast('Auspiciante eliminado');
+  }
+}
+
 // --- PUBLICACIÓN DIRECTA A GITHUB ---
 function initGitHubConfig() {
   document.getElementById('gh_owner').value = localStorage.getItem('gh_owner') || 'clubsiambrettachivilcoy';
@@ -300,6 +400,9 @@ async function publicarEnGitHub() {
     // 2. Guardar data/salidas.json
     const salidasFormatted = { salidas: estado.salidas };
     await actualizarArchivoGitHub(owner, repo, branch, token, 'data/salidas.json', JSON.stringify(salidasFormatted, null, 2));
+
+    // 3. Guardar data/auspiciantes.json
+    await actualizarArchivoGitHub(owner, repo, branch, token, 'data/auspiciantes.json', JSON.stringify(estado.auspiciantes, null, 2));
 
     statusEl.innerHTML = '<span style="color: var(--success-color)">✅ ¡Publicado en GitHub con éxito! La página se actualizará en unos segundos.</span>';
     mostrarToast('¡Cambios guardados y publicados en GitHub!');
@@ -356,7 +459,10 @@ function descargarJSONs() {
   descargarArchivo('eventos.json', JSON.stringify(estado.evento, null, 2));
   setTimeout(() => {
     descargarArchivo('salidas.json', JSON.stringify({ salidas: estado.salidas }, null, 2));
-  }, 500);
+  }, 300);
+  setTimeout(() => {
+    descargarArchivo('auspiciantes.json', JSON.stringify(estado.auspiciantes, null, 2));
+  }, 600);
   mostrarToast('Archivos JSON descargados');
 }
 
